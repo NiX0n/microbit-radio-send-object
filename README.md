@@ -1,18 +1,11 @@
 
 > Open this page at [https://nix0n.github.io/microbit-radio-send-object/](https://nix0n.github.io/microbit-radio-send-object/)
 
-## Use as Extension
+# Micro:bit Radio Send Object Sample
 
-This repository can be added as an **extension** in MakeCode.
+## Import this project
 
-* open [https://makecode.microbit.org/](https://makecode.microbit.org/)
-* click on **New Project**
-* click on **Extensions** under the gearwheel menu
-* search for **https://github.com/nix0n/microbit-radio-send-object** and import
-
-## Edit this project
-
-To edit this repository in MakeCode.
+To Import this repository in MakeCode.
 
 * open [https://makecode.microbit.org/](https://makecode.microbit.org/)
 * click on **Import** then click on **Import URL**
