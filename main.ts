@@ -18,16 +18,16 @@ radio.onReceivedString(function (receivedString) {
             return;
         }
     }
-    let obj = JSON.parse(rxBuffer[serialNumber])
+    let receivedObject = JSON.parse(rxBuffer[serialNumber])
     // reset receive buffer
     rxBuffer[serialNumber] = ''
-    onRadioReceivedObject(obj, {'serial number': serialNumber})
+    onRadioReceivedObject(receivedObject, {'serial number': serialNumber})
 })
 
-function onRadioReceivedObject(obj: any, props: any)
+function onRadioReceivedObject(receivedObject: any, props: any)
 {
     // log() for debugging
-    console.log(obj)
+    console.log(receivedObject)
 }
 
 function radioSendObject(obj: any)
