@@ -1,7 +1,12 @@
-
 radio.onReceivedString(function (receivedString) {
     let serialNumber = radio.receivedPacket(RadioPacketProperty.SerialNumber)
-    // initialize or append to receive buffer
+    // Did we just receive a packet from ourselves?
+    if(serialNumber == SERIAL_NUMBER)
+    {
+        // Ignore it!
+        return
+    }
+    // Initialize or append to receive buffer
     rxBuffer[serialNumber] = (rxBuffer[serialNumber] || "") + receivedString
     // Does the buffer start with an STX control character?
     if (rxBuffer[serialNumber].charCodeAt(0) == 2)
