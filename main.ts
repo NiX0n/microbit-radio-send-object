@@ -1,4 +1,32 @@
-radio.onReceivedString(function (receivedString) {
+namespace radio {
+
+/**
+ * Constant maximum string length by radio.sendString()
+ */
+export let MAX_PACKET_LENGTH: number = 19
+
+/**
+ * Constant serial number of this device
+ */
+let SERIAL_NUMBER: number = control.deviceSerialNumber()
+
+/**
+ * rxBuffer handles single streams from multiple devices
+ * indexed by serial number
+ */
+let rxBuffer: { [key: string]: string } = {}
+
+/**
+ * receivedObject: any, props: any
+ */
+let _onReceivedObject = (receivedObject: any, props: any) => {}
+
+export function onReceivedObject(callback: (receivedObject: any, props: any) => void)
+{
+    _onReceivedObject = callback
+}
+
+onReceivedString(function (receivedString) {
     let serialNumber = radio.receivedPacket(RadioPacketProperty.SerialNumber)
     // Did we just receive a packet from ourselves?
     if(serialNumber == SERIAL_NUMBER)
@@ -26,16 +54,10 @@ radio.onReceivedString(function (receivedString) {
     let receivedObject = JSON.parse(rxBuffer[serialNumber])
     // reset receive buffer
     rxBuffer[serialNumber] = ''
-    onRadioReceivedObject(receivedObject, {'serial number': serialNumber})
+    _onReceivedObject(receivedObject, {'serial number': serialNumber})
 })
 
-function onRadioReceivedObject(receivedObject: any, props: any)
-{
-    // log() for debugging
-    console.log(receivedObject)
-}
-
-function radioSendObject(obj: any)
+export function sendObject(obj: any)
 {
     let data = JSON.stringify(obj);
     if(data.length > MAX_PACKET_LENGTH)
@@ -51,20 +73,21 @@ function radioSendObject(obj: any)
     }
 }
 
+} // namespace radio
+
+
+radio.onReceivedObject(function(receivedObject: any, props: any) {
+    // log() for debugging
+    console.log(receivedObject)
+})
+
 // Test
-input.onButtonPressed(Button.A, function() {
-    radioSendObject({str: "thisisastringlongerthanapacket", arr: [1,2,3], bool: true})
+input.onButtonPressed(Button.A, function () {
+    radio.sendObject({ str: "thisisastringlongerthanapacket", arr: [1, 2, 3], bool: true })
 })
 
 // Constant must be same for all devices
 let RADIO_GROUP: number = 11
-// Constant maximum string length by radio.sendString()
-let MAX_PACKET_LENGTH: number = 19
-// Constant serial number of this device
-let SERIAL_NUMBER: number = control.deviceSerialNumber()
-// rxBuffer handles single streams from multiple devices
-// indexed by serial number
-let rxBuffer: string[] = []
 // Send serialNumber for addressing
 radio.setTransmitSerialNumber(true)
 radio.setGroup(RADIO_GROUP)
