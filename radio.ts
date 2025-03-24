@@ -1,14 +1,14 @@
 namespace radio {
 
 /**
- * Constant maximum string length by radio.sendString()
+ * Maximum string length by radio.sendString()
  */
-export let MAX_PACKET_LENGTH: number = 19
+export const MAX_PACKET_LENGTH: number = 19
 
 /**
- * Constant serial number of this device
+ * Serial number of this device
  */
-let SERIAL_NUMBER: number = control.deviceSerialNumber()
+const SERIAL_NUMBER: number = control.deviceSerialNumber()
 
 /**
  * rxBuffer handles single streams from multiple devices
@@ -52,14 +52,19 @@ export function sendObject(obj: any)
     }
 }
 
+/**
+ * Register onReceivedString() callback
+ * that supports onReceivedObject()
+ */
 function _registerOnReceivedString() {
     onReceivedString(function (receivedString) {
-        let serialNumber = radio.receivedPacket(RadioPacketProperty.SerialNumber)
+        let serialNumber = receivedPacket(RadioPacketProperty.SerialNumber)
         // Did we just receive a packet from ourselves?
         if (serialNumber == SERIAL_NUMBER) {
             // Ignore it!
             return
         }
+
         // Initialize or append to receive buffer
         rxBuffer[serialNumber] = (rxBuffer[serialNumber] || "") + receivedString
         // Does the buffer start with an STX control character?
@@ -74,10 +79,20 @@ function _registerOnReceivedString() {
                 return;
             }
         }
+
+        // Prase complete encoding
         let receivedObject = JSON.parse(rxBuffer[serialNumber])
-        // reset receive buffer
+
+        // Reset receive buffer
         rxBuffer[serialNumber] = ''
-        _onReceivedObject(receivedObject, { 'serial number': serialNumber })
+
+        // Trigger callback
+        _onReceivedObject(receivedObject, [
+            receivedPacket(RadioPacketProperty.SignalStrength),
+            serialNumber,
+            // Notice: SignalStrength and Time are for last packet sent
+            receivedPacket(RadioPacketProperty.Time)
+        ])
     })
 }
 
