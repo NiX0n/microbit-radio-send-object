@@ -38,17 +38,17 @@ export function onReceivedObject(cb: (receivedObject: any, props: any) => void)
  */
 export function sendObject(value: any)
 {
-    let data = JSON.stringify(value);
-    if(data.length > MAX_PACKET_LENGTH)
+    let txBuffer = JSON.stringify(value);
+    if(txBuffer.length > MAX_PACKET_LENGTH)
     {
         // If data is too long
         // Wrap it in control characters
-        data = `\x02${data}\x03`
+        txBuffer = `\x02${txBuffer}\x03`
     }
     // Then chunk the string up and send it
-    for(let p = 0; p < data.length; p += MAX_PACKET_LENGTH)
+    for(let p = 0; p < txBuffer.length; p += MAX_PACKET_LENGTH)
     {
-        sendString(data.substr(p, MAX_PACKET_LENGTH))
+        sendString(txBuffer.substr(p, MAX_PACKET_LENGTH))
     }
 }
 
