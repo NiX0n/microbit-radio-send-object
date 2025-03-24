@@ -34,11 +34,11 @@ export function onReceivedObject(cb: (receivedObject: any, props: any) => void)
 /**
  * Send object serialized in JSON format over radio.
  * Chunks message into parts if over MAX_PACKET_LENGTH.
- * @param {any} obj Object to be sent over radio
+ * @param {any} value Object to be sent over radio
  */
-export function sendObject(obj: any)
+export function sendObject(value: any)
 {
-    let data = JSON.stringify(obj);
+    let data = JSON.stringify(value);
     if(data.length > MAX_PACKET_LENGTH)
     {
         // If data is too long
