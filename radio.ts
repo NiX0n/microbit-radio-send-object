@@ -11,7 +11,7 @@ export const MAX_PACKET_LENGTH: number = 19
 const SERIAL_NUMBER: number = control.deviceSerialNumber()
 
 /**
- * rxBuffer handles single streams from multiple devices
+ * Receive Buffer handles single streams from multiple devices
  * indexed by serial number
  */
 let rxBuffer: { [key: string]: string } = {}
@@ -38,6 +38,7 @@ export function onReceivedObject(cb: (receivedObject: any, props: any) => void)
  */
 export function sendObject(value: any)
 {
+    // Transmit Buffer
     let txBuffer = JSON.stringify(value);
     if(txBuffer.length > MAX_PACKET_LENGTH)
     {
