@@ -80,7 +80,7 @@ function _registerOnReceivedString() {
             }
         }
 
-        // Prase complete encoding
+        // Parse complete encoding
         let receivedObject = JSON.parse(rxBuffer[serialNumber])
 
         // Reset receive buffer
