@@ -36,15 +36,15 @@ let isTestSuccess = false
 radio.sendString("null")
 
 // Wait for initialization
-basic.pause(300)
+basic.pause(1000)
 
 radio.sendObject({ echo: true, payload: controlPayload })
 
-basic.pause(300)
+basic.pause(1000)
 
 console.log(`Success: ${isTestSuccess ? 'yes' : 'no'}`)
 
 if(!isTestSuccess)
 {
-    throw 'Test has failed for uknown reason'
+    throw 'Test has failed for unknown reason'
 }
