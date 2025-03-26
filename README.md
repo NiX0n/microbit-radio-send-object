@@ -25,6 +25,48 @@ To Import this repository in MakeCode.
 * click on **Import** then click on **Import URL**
 * paste **https://github.com/nix0n/microbit-radio-send-object** and click import
 
+## Usage
+
+### `radio.sendObject(value)`
+
+Send object over radio
+
+**PARAMETERS**
+
+* `value`: `any` - Object to be sent
+
+**RETURNS**
+
+void
+
+**EXAMPLE**
+```typescript
+radio.sendObject({ foo: 'bar', baz: true })
+```
+
+### `radio.onReceivedObject(cb)`
+
+Register event handler to listen for received object
+
+**PARAMETERS**
+
+* `cb` : `(receivedObject, props) => void` - Callback
+    - `receivedObject`: `any` - Object sent over radio
+    - `props`: `number[]` - List of packet properties accessable using [RadioPacketProperty.* enumeration](https://makecode.microbit.org/reference/radio/received-packet)
+
+**RETURNS**
+
+void
+
+**EXAMPLE**
+```typescript
+radio.onReceivedObject(function (receivedObject: any, props: number[]) {
+    console.log(`Object received: ${JSON.stringify(receivedObject)}`)
+})
+```
+
+
+## Other
 #### Metadata (used for search, rendering)
 
 * for PXT/microbit
