@@ -41,6 +41,7 @@ void
 
 **EXAMPLE**
 ```typescript
+// Notice: JSON encoding longer than 19 characters
 radio.sendObject({ foo: 'bar', baz: true })
 ```
 
@@ -61,6 +62,7 @@ void
 **EXAMPLE**
 ```typescript
 radio.onReceivedObject(function (receivedObject: any, props: number[]) {
+    console.log(`Object was sent by: ${props[RadioPacketProperty.SerialNumber]}`)
     console.log(`Object received: ${JSON.stringify(receivedObject)}`)
 })
 ```
