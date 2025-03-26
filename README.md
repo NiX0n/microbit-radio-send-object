@@ -7,6 +7,8 @@ This extension extends the [built-in radio namespace](https://makecode.microbit.
 
 The `radio.sendObject()` function depends on the built-in `radio.sendString()` function to send a JSON encoding of the passed value.  Micro:bit's built-in [radio.sendString()](https://makecode.microbit.org/reference/radio/send-string) has a limit of 19 characters.  To work around this, radio.sendObject() uses a combination of special control characters (STX, ETX) and maximally sized chunks sent by radio.sendString(); which allows for near limitless object size.
 
+**Notice:** It's recommended that you enable serial number transmission, using `radio.setTransmitSerialNumber(true)`.  This allows for multiple devices simultaneously sending streams.  It also provides loopback detection in the rare instance the receive event is on the same device it was transmitted.
+
 ## Use as Extension
 
 This repository can be added as an **extension** in MakeCode.
@@ -69,6 +71,10 @@ radio.onReceivedObject(function (receivedObject: any, props: number[]) {
 
 
 ## Other
+
+### License
+This code is made available under the [the MIT License](LICENSE).
+
 #### Metadata (used for search, rendering)
 
 * for PXT/microbit
