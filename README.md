@@ -52,7 +52,7 @@ Register event handler to listen for received object
 
 * `cb` : `(receivedObject, props) => void` - Callback
     - `receivedObject`: `any` - Object sent over radio
-    - `props`: `number[]` - List of packet properties accessable using [RadioPacketProperty.* enumeration](https://makecode.microbit.org/reference/radio/received-packet)
+    - `props`: `number[]` - List of packet properties accessible using [RadioPacketProperty.* enumeration](https://makecode.microbit.org/reference/radio/received-packet)
 
 **RETURNS**
 
