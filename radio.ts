@@ -17,15 +17,15 @@ const SERIAL_NUMBER: number = control.deviceSerialNumber()
 let rxBuffer: { [key: string]: string } = {}
 
 /**
- * receivedObject: any, props: any
+ * receivedObject: any, props: number[]
  */
-let _onReceivedObject = (receivedObject: any, props: any) => {}
+let _onReceivedObject = (receivedObject: any, props: number[]) => {}
 
 /**
  * Registers code to run when the radio receives an object.
  * Notice this will override any onReceivedString() callback
  */
-export function onReceivedObject(cb: (receivedObject: any, props: any) => void)
+export function onReceivedObject(cb: (receivedObject: any, props: number[]) => void)
 {
     _onReceivedObject = cb
     _registerOnReceivedString()
