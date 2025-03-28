@@ -17,7 +17,8 @@ const SERIAL_NUMBER: number = control.deviceSerialNumber()
 let rxBuffer: { [key: string]: string } = {}
 
 /**
- * receivedObject: any, props: number[]
+ * Initialize variable with well-defined no-op
+ * @var {(receivedObject: any, props: number[]) => {} : void}
  */
 let _onReceivedObject = (receivedObject: any, props: number[]) => {}
 
